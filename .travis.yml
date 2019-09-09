@@ -19,7 +19,7 @@ after_success:
   - docker build -t kewlpack/multi-server ./server
   - docker build -t kewlpack/multi-worker ./worker
   # log into docker CLI
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" -- password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # push images to docker hub
   - docker push kewlpack/multi-client
   - docker push kewlpack/multi-nginx
