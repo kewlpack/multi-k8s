@@ -18,8 +18,8 @@ after_success:
   - docker build -t kewlpack/multi-nginx ./nginx
   - docker build -t kewlpack/multi-server ./server
   - docker build -t kewlpack/multi-worker ./worker
-  # log into the docker CLI (setup creds in Travis)
-  - echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" -- password-stdin
+  # log into docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" -- password-stdin
   # push images to docker hub
   - docker push kewlpack/multi-client
   - docker push kewlpack/multi-nginx
