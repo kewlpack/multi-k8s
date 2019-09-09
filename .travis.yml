@@ -1,0 +1,27 @@
+sudo: required
+
+# setup services.
+services:
+  - docker
+
+# setup test directives
+before_install:
+  - docker build -t kewlpack/react-test -f ./client/Dockerfile.dev ./client
+
+# execute all tests
+script:
+  - docker run -e CI=true kewlpack/react-test npm test
+
+# post test, setup build for each image.
+after_success:
+  - docker build -t kewlpack/multi-client ./client
+  - docker build -t kewlpack/multi-nginx ./nginx
+  - docker build -t kewlpack/multi-server ./server
+  - docker build -t kewlpack/multi-worker ./worker
+  # log into the docker CLI (setup creds in Travis)
+  - echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" -- password-stdin
+  # push images to docker hub
+  - docker push kewlpack/multi-client
+  - docker push kewlpack/multi-nginx
+  - docker push kewlpack/multi-server
+  - docker push kewlpack/multi-worker
