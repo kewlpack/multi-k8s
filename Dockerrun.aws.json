@@ -6,21 +6,21 @@
       "image": "kewlpack/multi-client",
       "hostname": "client",
       "essential": false,
-      "memory": 128
+      "memory": 64
     },
     {
       "name": "server",
       "image": "kewlpack/multi-server",
       "hostname": "api",
       "essential": false,
-      "memory": 128
+      "memory": 64
     },
     {
       "name": "worker",
       "image": "kewlpack/multi-worker",
       "hostname": "worker",
       "essential": false,
-      "memory": 128
+      "memory": 64
     },
     {
       "name": "nginx",
@@ -34,7 +34,7 @@
         }
       ],
       "links": ["client", "server"],
-      "memory": 128
+      "memory": 64
     }
   ]
 }
