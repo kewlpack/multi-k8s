@@ -1,0 +1,20 @@
+sudo: required
+services:
+  - docker
+env:
+  global:
+    #setup for unique build version numbers
+    - SHA=$(git rev-parse HEAD)
+before_install:
+  #docker build
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker build -t kewlpack/react-test -f ./client/Dockerfile.dev ./client
+script:
+  #docker test command
+  - docker run -e CI=true kewlpack/react-test npm run test
+deploy:
+  #deploy command
+  provider: script
+  script: bash ./deploy.sh
+on:
+  branch: master
