@@ -15,5 +15,6 @@ spec:
       containers:
         - name: client
           image: kewlpack/multi-client
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
